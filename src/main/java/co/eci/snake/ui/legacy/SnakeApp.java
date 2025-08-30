@@ -177,3 +177,4 @@ public final class SnakeApp {
         SwingUtilities.invokeLater(SnakeApp::new);
     }
 }
+
