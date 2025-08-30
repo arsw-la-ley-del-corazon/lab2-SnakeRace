@@ -48,7 +48,7 @@ public final class SnakeApp extends JFrame {
     this.clock = new GameClock(60, () -> SwingUtilities.invokeLater(gamePanel::repaint));
 
     var exec = Executors.newVirtualThreadPerTaskExecutor();
-    snakes.forEach(s -> exec.submit(new SnakeRunner(s, board)));
+    snakes.forEach(s -> exec.submit(new SnakeRunner(s, board,clock)));
 
     actionButton.addActionListener((ActionEvent e) -> togglePause());
 
@@ -129,14 +129,19 @@ public final class SnakeApp extends JFrame {
   }
 
   private void togglePause() {
-    if ("Action".equals(actionButton.getText())) {
-      actionButton.setText("Resume");
+    if (!clock.isRunning() && !clock.isPaused()) {
+      
+      clock.start();
+      actionButton.setText("Pausar");
+    } else if (clock.isRunning()) {
       clock.pause();
-    } else {
-      actionButton.setText("Action");
+      actionButton.setText("Reanudar");
+    } else if (clock.isPaused()) {
       clock.resume();
+      actionButton.setText("Pausar");
     }
-  }
+}
+
 
   public static final class GamePanel extends JPanel {
     private final Board board;
