@@ -130,7 +130,6 @@ public final class SnakeApp extends JFrame {
 
   private void togglePause() {
     if (!clock.isRunning() && !clock.isPaused()) {
-      
       clock.start();
       actionButton.setText("Pausar");
     } else if (clock.isRunning()) {
